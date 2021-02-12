@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LoveAPP</string>
+    <string name="i_love_you">I Love You</string>
+    <string name="heart_icon">Heart icon</string>
 </resources>

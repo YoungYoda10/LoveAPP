@@ -1,5 +1,8 @@
 package com.vladimirvozar.loveapp.models;
 
+import android.util.Log;
+import android.widget.TextView;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.Guideline;
 import androidx.databinding.BaseObservable;
@@ -24,22 +27,37 @@ public class HeartData extends ViewModel {
         private MutableLiveData<Float> horizontalHelper1 = new MutableLiveData<>();
         private MutableLiveData<Float> horizontalHelper2 = new MutableLiveData<>();
 
+        private int clickCounter;
+
+        private MutableLiveData<Boolean> textVisible = new MutableLiveData<>();
+
         public Observer() {
             verticalHelper1.setValue(0.30f); //30%
             verticalHelper2.setValue(0.70f); //70%
 
             horizontalHelper1.setValue(0.40f); //40%
             horizontalHelper2.setValue(0.60f); //60%
+
+            textVisible.setValue(false);
+
+            clickCounter = 1;
         }
 
         public void increaseGuideLine() {
-            verticalHelper1.setValue(getVerticalHelper1() - 0.1f);
-            verticalHelper2.setValue(getVerticalHelper2() + 0.1f);
+            if (clickCounter < 5) {
+                clickCounter++;
 
-            horizontalHelper1.setValue(getHorizontalHelper1() - 0.1f);
-            horizontalHelper2.setValue(getHorizontalHelper2() + 0.1f);
+                verticalHelper1.setValue(getVerticalHelper1() - 0.1f);
+                verticalHelper2.setValue(getVerticalHelper2() + 0.1f);
 
-            notifyPropertyChanged(BR._all);
+                horizontalHelper1.setValue(getHorizontalHelper1() - 0.1f);
+                horizontalHelper2.setValue(getHorizontalHelper2() + 0.1f);
+
+                notifyPropertyChanged(BR._all);
+            } else {
+                textVisible.setValue(true);
+                notifyPropertyChanged(BR.textVisible);
+            }
         }
 
         @Bindable
@@ -61,8 +79,17 @@ public class HeartData extends ViewModel {
         public float getHorizontalHelper2() {
             return horizontalHelper2.getValue();
         }
-    }
 
+        @Bindable
+        public boolean getTextVisible() {
+            return textVisible.getValue();
+        }
+
+        @Bindable
+        public void setTextVisible(boolean textVisible) {
+            this.textVisible.setValue(textVisible);
+        }
+    }
 
     @BindingAdapter("layout_constraintGuide_begin")
     public static void setLayoutConstraintGuideBegin(Guideline guideline, float percent) {
