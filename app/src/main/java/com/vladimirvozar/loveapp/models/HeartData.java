@@ -45,13 +45,18 @@ public class HeartData extends ViewModel {
 
         public void increaseGuideLine() {
             if (clickCounter < 5) {
-                clickCounter++;
-
                 verticalHelper1.setValue(getVerticalHelper1() - 0.1f);
                 verticalHelper2.setValue(getVerticalHelper2() + 0.1f);
 
                 horizontalHelper1.setValue(getHorizontalHelper1() - 0.1f);
                 horizontalHelper2.setValue(getHorizontalHelper2() + 0.1f);
+
+                clickCounter++;
+
+                if(clickCounter == 5){
+                    textVisible.setValue(true);
+                    notifyPropertyChanged(BR.textVisible);
+                }
 
                 notifyPropertyChanged(BR._all);
             } else {
