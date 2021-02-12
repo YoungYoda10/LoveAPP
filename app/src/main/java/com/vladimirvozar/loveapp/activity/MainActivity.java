@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         heartData = new ViewModelProvider(this).get(HeartData.class);
-
-        mainBinding.setMaindatabinder(heartData);
+        mainBinding.setMaindatabinder(heartData.getObserver());
+        mainBinding.setLifecycleOwner(this);
     }
 }

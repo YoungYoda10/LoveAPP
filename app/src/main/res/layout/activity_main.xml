@@ -5,10 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="maindatabinder"
-            type="com.vladimirvozar.loveapp.models.HeartData" />
+            type="com.vladimirvozar.loveapp.models.HeartData.Observer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +21,8 @@
             android:id="@+id/imgHeart"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clickable="true"
+            android:onClick="@{(view) -> maindatabinder.increaseGuideLine()}"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
