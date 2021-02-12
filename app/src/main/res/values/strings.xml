@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoveAPP</string>
+    <string name="app_name" translatable="false">LoveAPP</string>
     <string name="i_love_you">I Love You</string>
-    <string name="heart_icon">Heart icon</string>
+    <string name="heart_icon" translatable="false">Heart icon</string>
 </resources>
