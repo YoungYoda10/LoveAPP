@@ -10,7 +10,7 @@
 
         <variable
             name="maindatabinder"
-            type="com.vladimirvozar.loveapp.models.HeartData.Observer" />
+            type="com.vladimirvozar.loveapp.models.HeartData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,10 +44,9 @@
             android:textStyle="bold"
             android:theme="@style/i_love_you"
             android:visibility="@{maindatabinder.textVisible ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
@@ -76,6 +75,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="@{maindatabinder.horizontalHelper2}" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

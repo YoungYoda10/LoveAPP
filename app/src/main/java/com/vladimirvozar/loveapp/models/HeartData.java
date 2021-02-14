@@ -14,86 +14,80 @@ import androidx.lifecycle.ViewModel;
 import com.vladimirvozar.loveapp.BR;
 
 public class HeartData extends ViewModel {
-    private Observer observer = new Observer();
 
-    public Observer getObserver() {
-        return observer;
+    private MutableLiveData<Float> verticalHelper1 = new MutableLiveData<>();
+    private MutableLiveData<Float> verticalHelper2 = new MutableLiveData<>();
+
+    private MutableLiveData<Float> horizontalHelper1 = new MutableLiveData<>();
+    private MutableLiveData<Float> horizontalHelper2 = new MutableLiveData<>();
+
+    private int clickCounter;
+
+    private MutableLiveData<Boolean> textVisible = new MutableLiveData<>();
+
+    public HeartData() {
+        verticalHelper1.setValue(0.30f); //30%
+        verticalHelper2.setValue(0.70f); //70%
+
+        horizontalHelper1.setValue(0.40f); //40%
+        horizontalHelper2.setValue(0.60f); //60%
+
+        clickCounter = 0;
     }
 
-    public static class Observer extends BaseObservable {
-        private MutableLiveData<Float> verticalHelper1 = new MutableLiveData<>();
-        private MutableLiveData<Float> verticalHelper2 = new MutableLiveData<>();
+    public void increaseGuideLine() {
+        clickCounter++;
+        if (clickCounter <= 4) {
+            verticalHelper1.setValue(getVerticalHelper1().getValue() - 0.1f);
+            verticalHelper2.setValue(getVerticalHelper2().getValue() + 0.1f);
 
-        private MutableLiveData<Float> horizontalHelper1 = new MutableLiveData<>();
-        private MutableLiveData<Float> horizontalHelper2 = new MutableLiveData<>();
+            horizontalHelper1.setValue(getHorizontalHelper1().getValue() - 0.1f);
+            horizontalHelper2.setValue(getHorizontalHelper2().getValue() + 0.1f);
 
-        private int clickCounter;
-
-        private MutableLiveData<Boolean> textVisible = new MutableLiveData<>();
-
-        public Observer() {
-            verticalHelper1.setValue(0.30f); //30%
-            verticalHelper2.setValue(0.70f); //70%
-
-            horizontalHelper1.setValue(0.40f); //40%
-            horizontalHelper2.setValue(0.60f); //60%
-
-            textVisible.setValue(false);
-
-            clickCounter = 1;
-        }
-
-        public void increaseGuideLine() {
-            if (clickCounter < 5) {
-                verticalHelper1.setValue(getVerticalHelper1() - 0.1f);
-                verticalHelper2.setValue(getVerticalHelper2() + 0.1f);
-
-                horizontalHelper1.setValue(getHorizontalHelper1() - 0.1f);
-                horizontalHelper2.setValue(getHorizontalHelper2() + 0.1f);
-
-                clickCounter++;
-
-                if(clickCounter == 5){
-                    textVisible.setValue(true);
-                    notifyPropertyChanged(BR.textVisible);
-                }
-
-                notifyPropertyChanged(BR._all);
-            } else {
+            if (clickCounter == 4) {
                 textVisible.setValue(true);
-                notifyPropertyChanged(BR.textVisible);
             }
         }
+    }
 
-        @Bindable
-        public float getVerticalHelper1() {
-            return verticalHelper1.getValue();
-        }
+    public MutableLiveData<Float> getVerticalHelper1() {
+        return verticalHelper1;
+    }
 
-        @Bindable
-        public float getVerticalHelper2() {
-            return verticalHelper2.getValue();
-        }
+    public void setVerticalHelper1(MutableLiveData<Float> verticalHelper1) {
+        this.verticalHelper1 = verticalHelper1;
+    }
 
-        @Bindable
-        public float getHorizontalHelper1() {
-            return horizontalHelper1.getValue();
-        }
+    public MutableLiveData<Float> getVerticalHelper2() {
+        return verticalHelper2;
+    }
 
-        @Bindable
-        public float getHorizontalHelper2() {
-            return horizontalHelper2.getValue();
-        }
+    public void setVerticalHelper2(MutableLiveData<Float> verticalHelper2) {
+        this.verticalHelper2 = verticalHelper2;
+    }
 
-        @Bindable
-        public boolean getTextVisible() {
-            return textVisible.getValue();
-        }
+    public MutableLiveData<Float> getHorizontalHelper1() {
+        return horizontalHelper1;
+    }
 
-        @Bindable
-        public void setTextVisible(boolean textVisible) {
-            this.textVisible.setValue(textVisible);
-        }
+    public void setHorizontalHelper1(MutableLiveData<Float> horizontalHelper1) {
+        this.horizontalHelper1 = horizontalHelper1;
+    }
+
+    public MutableLiveData<Float> getHorizontalHelper2() {
+        return horizontalHelper2;
+    }
+
+    public void setHorizontalHelper2(MutableLiveData<Float> horizontalHelper2) {
+        this.horizontalHelper2 = horizontalHelper2;
+    }
+
+    public MutableLiveData<Boolean> getTextVisible() {
+        return textVisible;
+    }
+
+    public void setTextVisible(MutableLiveData<Boolean> textVisible) {
+        this.textVisible = textVisible;
     }
 
     @BindingAdapter("layout_constraintGuide_begin")

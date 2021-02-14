@@ -2,9 +2,11 @@ package com.vladimirvozar.loveapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.vladimirvozar.loveapp.R;
 import com.vladimirvozar.loveapp.databinding.ActivityMainBinding;
@@ -22,7 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         heartData = new ViewModelProvider(this).get(HeartData.class);
-        mainBinding.setMaindatabinder(heartData.getObserver());
+        mainBinding.setMaindatabinder(heartData);
         mainBinding.setLifecycleOwner(this);
+
+//        heartData.getTextVisible().observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                Toast.makeText(MainActivity.this, "Promenjen textVisible", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }
